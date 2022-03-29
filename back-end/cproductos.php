@@ -1,12 +1,15 @@
 <?php
 include 'conexion.php';
+$id_categorias=$_GET['id_categorias'];
+$sentencia_produc="select * from productos where id_categorias='$id_categorias'";
+$produc=mysqli_query($conexion,$sentencia_produc);
 
 
 ?>
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>SANISIMO</title>
@@ -16,23 +19,17 @@ include 'conexion.php';
     <!--link-->
     <link rel="stylesheet" href="css/estilos.css">
     <link rel="stylesheet" href="css/footer.css">
-    <link rel="stylesheet" href="css/fontello.css">
     <!--meta:vp-->
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
 
 <body>
-    <!--header>div>h1-->
-    <section id="contenedor">
+ <section id="contenedor">
        <header>
        <div>
            <h1 class="titulo"></h1>
            <img src="img/logooo.png" alt="granola">
        </div>
-       
        
        <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
@@ -45,7 +42,7 @@ include 'conexion.php';
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="index.html">Página principal</a>
               </li>
-              
+             
               <li class="nav-item">
                 <a class="nav-link" href="aempresa.html">Conócenos</a>
               </li>
@@ -69,32 +66,42 @@ include 'conexion.php';
             </ul>
           </div>
         </div>
-      </nav>      
+      </nav>
     </header>
+    
+    
     <!--section#informacion>h2+div>p-->
     <section id="inf">
-           <center>
-            <div class="contenedor"> <!--raro-->
-            <div class="cont">
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <h4>Contáctanos</h4>
-            <br>
-            <p>Para preguntas o comentarios de nuestros productos por favor comunícate al 54 4746-9720 o al mail servicioalcliente@gruposanisimo.com de esa forma mis amigos de servicio a clientes podrán ofrecerte atención personalizada.</p>
-            <br>
-            <br>
-            <img src="img/personaa.png" alt="persona amable">
+            <div class="contenedor"> 
+            <div class="beb">
+            <br/>
+            <br/>
+            <?php while($procat=mysqli_fetch_array($produc)){ ?>
+            
+            <div >
+                    
+                </div>
+                <div ><br/>
+                   <center>
+                    <h2 ><?php echo $procat['nombre']; ?></h2><br/>
+                    <p><img src="<?php echo $procat['imagen']; ?>"></p>
+                    <p >$<?php echo $procat['precio']; ?></p>
+                    <p ><?php echo $procat['stock']; ?> disponibles</p>
+                    </center>
+                </div>
+            </div>
+        <?php } ?>
+    <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            
             </div>
             </div>
-            </center>
     </section>
+    
    
     <footer id="footer" class="footer-1">
       <div class="main-footer widgets-dark typo-light">
@@ -174,6 +181,8 @@ include 'conexion.php';
       </div>
       </div>
       </footer>
+
     </section>
+    
 </body>
 </html>
